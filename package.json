@@ -1,11 +1,10 @@
 {
-  "name": "node-template",
+  "name": "jmaapi",
   "version": "1.0.0",
   "author": "penpenpng",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "TS_NODE_FILES=true ts-node -r tsconfig-paths/register ./src/index.ts",
     "build": "webpack",
     "typecheck": "tsc --noEmit",
     "test": "TS_CONFIG_PATHS=true ts-mocha test/**/*.spec.ts"
@@ -24,7 +23,6 @@
     "prettier": "^2.2.1",
     "ts-loader": "^8.0.12",
     "ts-mocha": "^8.0.0",
-    "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.3",
     "webpack": "^5.11.0",
