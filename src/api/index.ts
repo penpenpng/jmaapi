@@ -28,6 +28,10 @@ function api<T>(path: string | ((code: string) => string)) {
 
 export const getArea = api<JmaArea>("/common/const/area.json");
 
+export const getOverview = api<JmaOverview>(
+  (officeCode) => `/forecast/data/overview_forecast/${officeCode}.json`
+);
+
 export const getWeekOverview = api<JmaWeekOverview>(
   (officeCode) => `/forecast/data/overview_week/${officeCode}.json`
 );
