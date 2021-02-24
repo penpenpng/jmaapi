@@ -1,3 +1,0 @@
-interface JmaArea {
-  centers: unknown;
-}
