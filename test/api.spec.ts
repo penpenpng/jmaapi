@@ -1,9 +1,11 @@
 import assert from "assert";
 import { describe, it } from "mocha";
+
 import * as API from "@/api";
+import { lateinit } from "@/lib/lateinit";
 
 describe("getArea()", function () {
-  let area: JmaArea = (undefined as unknown) as JmaArea;
+  let area: JmaArea = lateinit<JmaArea>();
 
   const isCenterCode = (x: string) => Object.keys(area.centers).includes(x);
   const isOfficeCode = (x: string) => Object.keys(area.offices).includes(x);
@@ -17,7 +19,7 @@ describe("getArea()", function () {
     area = data;
   });
 
-  it("returns a tree which has valid children", function () {
+  it("returns a tree whose every node has valid children", function () {
     for (const center of Object.values(area.centers)) {
       for (const officeCode of center.children) {
         assert(isOfficeCode(officeCode));
@@ -43,7 +45,7 @@ describe("getArea()", function () {
     }
   });
 
-  it("returns a tree which has a valid parent", function () {
+  it("returns a tree whose every node has a valid parent", function () {
     for (const office of Object.values(area.offices)) {
       assert(isCenterCode(office.parent));
     }
