@@ -39,3 +39,7 @@ export const getOverview = api<JmaOverview>(
 export const getWeekOverview = api<JmaWeekOverview>(
   (code) => `/forecast/data/overview_week/${code}.json`
 );
+
+export const getForecast = api<JmaForecast[]>(
+  (code) => `/forecast/data/forecast/${code}.json`
+);

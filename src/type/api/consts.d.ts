@@ -2,7 +2,7 @@ type JmaTelop = Record<
   WeatherCode,
   [string, string, string, WeatherLabel, WeatherLabelEn]
 >;
-type WeatherCode = number;
+type WeatherCode = string;
 type WeatherLabel = string;
 type WeatherLabelEn = string;
 

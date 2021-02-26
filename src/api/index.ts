@@ -1,4 +1,4 @@
-import * as API from "./api";
+import * as JmaRawApi from "./api";
 import { convertClass, convertCodeForOverviewWeek } from "./code";
 
 export * as JmaRawApi from "./api";
@@ -11,14 +11,15 @@ export class JmaApi {
   private cache: JmaApiCache = {};
 
   async getArea(): Promise<JmaArea> {
-    if (!this.cache.area) this.cache.area = await API.getArea();
+    if (!this.cache.area) this.cache.area = await JmaRawApi.getArea();
 
     return this.cache.area;
   }
 
   async getOverview(
     areaClass: JmaAreaClass,
-    code: string
+    code: string,
+    options?: ApiRequestOption
   ): Promise<JmaOverview> {
     const converted = convertClass(
       await this.getArea(),
@@ -27,12 +28,13 @@ export class JmaApi {
       "offices"
     );
 
-    return API.getOverview(converted);
+    return JmaRawApi.getOverview(converted, options);
   }
 
   async getWeekOverview(
     areaClass: JmaAreaClass,
-    code: string
+    code: string,
+    options?: ApiRequestOption
   ): Promise<JmaWeekOverview> {
     const converted = convertCodeForOverviewWeek(
       await this.getArea(),
@@ -40,6 +42,16 @@ export class JmaApi {
       areaClass
     );
 
-    return API.getWeekOverview(converted);
+    return JmaRawApi.getWeekOverview(converted, options);
+  }
+
+  async getForecast(
+    areaClass: JmaAreaClass,
+    code: string,
+    options?: ApiRequestOption
+  ): Promise<JmaForecast[]> {
+    // TODO: getForecast の引数の制約を調べる
+
+    return JmaRawApi.getForecast(code, options);
   }
 }
