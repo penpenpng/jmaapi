@@ -1,7 +1,7 @@
 import assert from "assert";
 import { describe, it } from "mocha";
 
-import * as API from "@/api";
+import { JmaRawApi } from "@/api";
 import { lateinit } from "@/lib/lateinit";
 
 describe("getArea()", function () {
@@ -14,9 +14,7 @@ describe("getArea()", function () {
   const isClass20Code = (x: string) => Object.keys(area.class20s).includes(x);
 
   before(async function () {
-    const { data } = await API.getArea();
-
-    area = data;
+    area = await JmaRawApi.getArea();
   });
 
   it("returns a tree whose every node has valid children", function () {

@@ -1,37 +1,45 @@
-import axios, { AxiosResponse } from "axios";
+import * as API from "./api";
+import { convertClass, convertCodeForOverviewWeek } from "./code";
 
-const axiosInstance = axios.create({
-  baseURL: "https://www.jma.go.jp/bosai/",
-});
+export * as JmaRawApi from "./api";
 
-function api<T>(
-  path: string
-): (options?: ApiRequestOption) => Promise<AxiosResponse<T>>;
-function api<T>(
-  path: (code: string) => string
-): (code: string, options?: ApiRequestOption) => Promise<AxiosResponse<T>>;
-
-function api<T>(path: string | ((code: string) => string)) {
-  const call = <T>(path: string, options: ApiRequestOption | undefined) =>
-    axiosInstance.get<T>(path, {
-      params: options?.time && {
-        __time__: options.time,
-      },
-      ...options,
-    });
-
-  if (typeof path === "string")
-    return (options?: ApiRequestOption) => call<T>(path, options);
-  return (code: string, options?: ApiRequestOption) =>
-    call<T>(path(code), options);
+interface JmaApiCache {
+  area?: JmaArea;
 }
 
-export const getArea = api<JmaArea>("/common/const/area.json");
+export class JmaApi {
+  private cache: JmaApiCache = {};
 
-export const getOverview = api<JmaOverview>(
-  (officeCode) => `/forecast/data/overview_forecast/${officeCode}.json`
-);
+  async getArea(): Promise<JmaArea> {
+    if (!this.cache.area) this.cache.area = await API.getArea();
 
-export const getWeekOverview = api<JmaWeekOverview>(
-  (officeCode) => `/forecast/data/overview_week/${officeCode}.json`
-);
+    return this.cache.area;
+  }
+
+  async getOverview(
+    areaClass: JmaAreaClass,
+    code: string
+  ): Promise<JmaOverview> {
+    const converted = convertClass(
+      await this.getArea(),
+      code,
+      areaClass,
+      "offices"
+    );
+
+    return API.getOverview(converted);
+  }
+
+  async getWeekOverview(
+    areaClass: JmaAreaClass,
+    code: string
+  ): Promise<JmaWeekOverview> {
+    const converted = convertCodeForOverviewWeek(
+      await this.getArea(),
+      code,
+      areaClass
+    );
+
+    return API.getWeekOverview(converted);
+  }
+}

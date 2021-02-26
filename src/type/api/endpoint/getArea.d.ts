@@ -6,6 +6,8 @@ interface JmaArea {
   class20s: Record<JmaClass20Code, JmaClass20>;
 }
 
+type JmaAreaClass = keyof JmaArea;
+
 type JmaCenterCode = string;
 type JmaOfficeCode = string;
 type JmaClass10Code = string;
