@@ -16,7 +16,7 @@ const api = new JmaApi();
 (async () => {
   const area = await api.getArea();
   const tokyoCode = Object.entries(area.offices)
-    .filter(([_, offices]) => offices.name.includes("東京都"))
+    .filter(([_, office]) => office.name.includes("東京都"))
     .map(([code, _]) => code)[0];
 
   const data = await api.getForecast("offices", tokyoCode);
