@@ -1,13 +1,22 @@
 {
   "name": "jmaapi",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "penpenpng",
-  "private": true,
+  "main": "./dist/main.js",
+  "types": "./dist/src/index.d.ts",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/penpenpng/jmaapi.git"
+  },
   "scripts": {
     "build": "webpack",
     "typecheck": "tsc --noEmit",
-    "test": "TS_CONFIG_PATHS=true ts-mocha test/**/*.spec.ts"
+    "test": "TS_CONFIG_PATHS=true ts-mocha test/**/*.spec.ts",
+    "prepublishOnly": "yarn run build"
   },
   "devDependencies": {
     "@types/expect": "^24.3.0",
