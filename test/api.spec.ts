@@ -72,15 +72,4 @@ describe("JmaApi", function () {
       assert(e.offices.every((code) => isOfficeCode(code)));
     }
   });
-
-  it("Sample fetch", async function () {
-    const area = await api.getArea();
-    const tokyoCode = Object.entries(area.offices)
-      .filter(([_, center]) => center.name.includes("東京都"))
-      .map(([code, _]) => code)[0];
-
-    const data = await api.getForecast("offices", tokyoCode);
-
-    console.log(JSON.stringify(data));
-  });
 });
