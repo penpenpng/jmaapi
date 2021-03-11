@@ -16,6 +16,8 @@ describe("JmaApi", function () {
   const isClass20Code = (x: string) => Object.keys(area.class20s).includes(x);
 
   before(async function () {
+    this.timeout(5000);
+
     api = new JmaApi();
     area = await api.getArea();
   });
