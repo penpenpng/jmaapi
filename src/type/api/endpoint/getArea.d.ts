@@ -1,50 +1,69 @@
 interface JmaArea {
-  centers: Record<JmaCenterCode, JmaCenter>;
-  offices: Record<JmaOfficeCode, JmaOffice>;
-  class10s: Record<JmaClass10Code, JmaClass10>;
-  class15s: Record<JmaClass15Code, JmaClass15>;
-  class20s: Record<JmaClass20Code, JmaClass20>;
+  /** Center class areas. */
+  centers: Record<string, JmaCenter>;
+  /** Office class areas. */
+  offices: Record<string, JmaOffice>;
+  /** Class10 areas. */
+  class10s: Record<string, JmaClass10>;
+  /** Class15 areas. */
+  class15s: Record<string, JmaClass15>;
+  /** Class20 areas. */
+  class20s: Record<string, JmaClass20>;
 }
 
 type JmaAreaClass = keyof JmaArea;
 
-type JmaCenterCode = string;
-type JmaOfficeCode = string;
-type JmaClass10Code = string;
-type JmaClass15Code = string;
-type JmaClass20Code = string;
-
 interface JmaCenter {
-  children: JmaOfficeCode[];
+  /** Code of offices which belongs to this center. */
+  children: string[];
+  /** Name of the area in English. */
   enName: string;
+  /** Name of the area. */
   name: string;
+  /** Name of the meteorological observatory. */
   officeName: string;
 }
 
 interface JmaOffice {
-  children: JmaClass10Code[];
+  /** Code of class10 areas which belongs to this office. */
+  children: string[];
+  /** Name of the area. */
   name: string;
+  /** Name of the meteorological observatory. */
   officeName: string;
-  parent: JmaCenterCode;
+  /** Code of the center area which is the parent of this area. */
+  parent: string;
 }
 
 interface JmaClass10 {
-  children: JmaClass15Code[];
+  /** Code of class15 areas which belongs to this class10 area. */
+  children: string[];
+  /** Name of the area in English. */
   enName: string;
+  /** Name of the area. */
   name: string;
-  parent: JmaOfficeCode;
+  /** Code of the office area which is the parent of this area. */
+  parent: string;
 }
 
 interface JmaClass15 {
-  children: JmaClass20Code[];
+  /** Code of class20 areas which belongs to this class15 area. */
+  children: string[];
+  /** Name of the area in English. */
   enName: string;
+  /** Name of the area. */
   name: string;
-  parent: JmaClass10Code;
+  /** Code of the class10 area which is the parent of this area. */
+  parent: string;
 }
 
 interface JmaClass20 {
+  /** Name of the area in English. */
   enName: string;
+  /** Name of the area in Hiragana. */
   kana: string;
+  /** Name of the area. */
   name: string;
-  parent: JmaClass15Code;
+  /** Code of the class15 area which is the parent of this area. */
+  parent: string;
 }

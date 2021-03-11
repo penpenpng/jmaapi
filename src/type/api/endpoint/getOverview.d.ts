@@ -1,7 +1,12 @@
 interface JmaOverview {
+  /** Name of the meteorological observatory. */
   publishingOffice: string;
-  reportDatetime: DateString;
+  /** ISO 8601 format datetime when the meteorological observatory reports the forecast. */
+  reportDatetime: string;
+  /** Area name represented with human-readable string. */
   targetArea: string;
-  headTitle: string;
+  /** Short overview text. */
+  headlineText: string;
+  /** Long overview text. */
   text: string;
 }

@@ -1,4 +1,14 @@
-export const TELOPS: JmaTelop = {
+/** Weather code records.
+ * The keys are weather codes and the values are 5-tuples: [
+ *   weather icon name 1,
+ *   weather icon name 2,
+ *   weather code,
+ *   weather label in Japanese,
+ *   weather label in English] */
+export const TELOPS: Record<
+  string,
+  [string, string, string, string, string]
+> = {
   "100": ["100.svg", "500.svg", "100", "晴", "CLEAR"],
   "101": ["101.svg", "501.svg", "100", "晴時々曇", "PARTLY CLOUDY"],
   "102": [
@@ -593,7 +603,9 @@ export const TELOPS: JmaTelop = {
   "450": ["400.svg", "400.svg", "400", "雪で雷を伴う", "SNOW AND THUNDER"],
 };
 
-export const AREA_FUKEN: JmaAreaFuken = [
+/** List of center class codes which can be used to call `getWeekOverview`.
+ * `offices` codes are also available, but API acts as if it takes the corresponding center code. */
+export const AREA_FUKEN: Array<{ center: string; offices: string[] }> = [
   {
     center: "016000",
     offices: [
@@ -656,7 +668,7 @@ export const AREA_FUKEN: JmaAreaFuken = [
   },
 ];
 
-export const WEEK_AREAS: JmaWeekAreas = {
+export const WEEK_AREAS: Record<string, string> = {
   "011000": "Soya Region",
   "012000": "Kamikawa Rumoi Region",
   "013000": "Abashiri Kitami Mombetsu Region",

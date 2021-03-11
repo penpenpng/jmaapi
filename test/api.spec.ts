@@ -1,10 +1,12 @@
 import assert from "assert";
 import { describe, it } from "mocha";
 
-import { JmaRawApi } from "@/api";
+import { JmaApi } from "@/api";
 import { lateinit } from "@/lib/lateinit";
+import { AREA_FUKEN } from "@/api/consts";
 
-describe("getArea()", function () {
+describe("JmaApi", function () {
+  let api: JmaApi = lateinit<JmaApi>();
   let area: JmaArea = lateinit<JmaArea>();
 
   const isCenterCode = (x: string) => Object.keys(area.centers).includes(x);
@@ -14,7 +16,8 @@ describe("getArea()", function () {
   const isClass20Code = (x: string) => Object.keys(area.class20s).includes(x);
 
   before(async function () {
-    area = await JmaRawApi.getArea();
+    api = new JmaApi();
+    area = await api.getArea();
   });
 
   it("returns a tree whose every node has valid children", function () {
@@ -58,6 +61,13 @@ describe("getArea()", function () {
 
     for (const c20 of Object.values(area.class20s)) {
       assert(isClass15Code(c20.parent));
+    }
+  });
+
+  it("Const `AREA_FUKEN` has valid office codes", function () {
+    for (const e of AREA_FUKEN) {
+      assert(isOfficeCode(e.center));
+      assert(e.offices.every((code) => isOfficeCode(code)));
     }
   });
 });
