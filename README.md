@@ -4,7 +4,7 @@ API Client to fetch data from https://www.jma.go.jp/jma/index.html.
 
 ## Installation
 
-`yarn add jmaaapi` or `npm install jmaapi`
+`yarn add jmaapi` or `npm install jmaapi`
 
 ## Example
 
